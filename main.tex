@@ -1,0 +1,670 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Allows you to insert figures
+\usepackage{amsmath} % Allows you to do equations
+\usepackage{fancyhdr} % Formats the header
+\usepackage{geometry} % Formats the paper size, orientation, and margins
+\linespread{1.25} % about 1.5 spacing in Word
+\setlength{\parindent}{0pt} % no paragraph indents
+\setlength{\parskip}{1em} % paragraphs separated by one line
+\usepackage[style=authoryear-ibid,backend=biber,maxbibnames=99,maxcitenames=2,uniquelist=false,isbn=false,url=true,eprint=false,doi=true,giveninits=true,uniquename=init]{biblatex} 
+\usepackage[format=plain,
+            font=it]{caption} % Italicizes figure captions
+% \usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[cp1250]{inputenc}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\geometry{letterpaper, portrait, margin=1in}
+
+
+\begin{document}
+\begin{titlepage}
+   \begin{center}
+        \vspace*{4cm}
+        
+       
+       \Huge{Modelowanie Matematyczne} 
+        \hline
+
+        \vspace{0.2cm}
+        \Large{Projekt Egzaminacyjny} 
+
+        \vspace{0.3cm}
+        \large{Wersja oryginalna: Październik 2023 -- Styczeń 2024}\\
+        \large{Wersja poprawiona: Październik 2025}
+        
+        \vspace{2 cm}
+        \large{Kacper Hołowaty}
+       
+     
+       
+
+       \vfill
+    \end{center}
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Wstęp} 
+
+Motywem przewodnim projektu jest analiza dwóch spółek: Bank Millennium oraz mBank. Zawiera on trzy rozdziały, gdzie każdy z nich analizuje różne specyfikacje spółek, na przykład kursy zamknięcia czy log-zwroty za 2024 rok.
+\par
+Bank Millennium oraz mBank to dwie wiodące instytucje finansowe, które odgrywają istotną rolę w polskim sektorze bankowym. Oba banki specjalizują się w kompleksowej obsłudze klientów detalicznych oraz korporacyjnych, oferując nowoczesne rozwiązania z zakresu bankowości elektronicznej, produktów kredytowych, oszczędnościowych oraz inwestycyjnych.
+
+\section{Analiza cen zamknięcia dla spółek}
+    \vspace{0.5cm}
+\subsection{Bank Millennium S.A.}
+    \vspace{0.5 cm}
+
+\begin{center}
+\includegraphics[width=14cm]{images/plot_zamk_mill.png}
+\end{center}
+  \vspace{1 cm}
+
+\begin{center}
+\includegraphics[width=14cm]{images/hist_kurs_mill.png}
+\end{center}
+
+\vspace{1.5 cm}
+{\bf \large Statystyki opisowe Bank Millennium}
+\vspace{0.5 cm}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+ & \(\bar{x}\) & odch. st. & skośność & kurtoza \\
+\hline
+Akcja & 8.912269 & 0.6849215 & 0.6590286 & 2.85685\\
+\hline
+\end{tabular}
+\end{table}
+ 
+\vspace{1 cm}
+
+{\bf Kurtoza}
+
+Kurtoza dla kursu zamkniecia spółki Bank Millennium wynosi około 2.86 i ma ona rozkład lekko platykurtyczny, co oznacza, że intensywność wartości ekstremalnych jest mniejsza niż w przypadku rozkładu normalnego, i że dane są skoncentrowane wokół średniej. Kurtoza ta sugeruje również mniejsze ryzyko ekstremalnych wahań cen akcji niż w rozkładzie normalnym oraz rzadsze występowanie bardzo dużych wzrostów lub spadków.
+
+{\bf Skośność}
+
+Skośność dla kursu zamknięcia spółki Bank Millennium wynosi około 0.66 i oznacza, że rozkład jest umiarkowanie skośny w prawo, czyli ma dłuższy ogon po prawej stronie, a większość wartości jest mniejszych od średniej. Średnia jest minimalnie większa od mediany (Me = 8.845).
+
+\vspace{2 cm}
+{\large\bf{Parametry wybranych rozkładów wyestymowane za pomocą estymatora największej wiarygodności dla spółki Bank Millennium}}
+
+\vspace{0.5 cm} 
+{\bf Rozkład normalny}
+\vspace{0.5 cm}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ & estimate & Std. Error \\
+\hline
+mean & 8.9122691 & 0.04331789 \\
+\hline
+sd & 0.6835448 & 0.03063008 \\
+\hline
+\end{tabular}
+\end{table}
+\vspace{0.5 cm}
+{\bf Rozkład log-normalny}
+\vspace{0.5 cm}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ & estimate & Std. Error \\
+\hline
+meanlog & 2.18456392 & 0.004767633 \\
+\hline
+sdlog & 0.07523199 & 0.003368546 \\
+\hline
+\end{tabular}
+\end{table}
+\vspace{0.5 cm}
+{\bf Rozkład gamma}
+\vspace{0.5 cm}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ & estimate & Std. Error \\
+\hline
+shape & 174.68275 & 15.640544 \\
+\hline
+rate & 19.59982 & 1.757421 \\
+\hline
+\end{tabular}
+\end{table}
+\clearpage
+
+{\bf \large Wykresy diagnostyczne dla Bank Millennium}
+    
+{\bf \medium Wykres gęstości}
+
+\centerline{\includegraphics[width=14cm]{images/dens_mil.png}}
+Ten wykres porównuje funkcje gęstości prawdopodobieństwa dla trzech rozkładów: log-normalnego, gamma i normalnego. Pozwala zobaczyć, jak te rozkłady różnią się pod względem kształtu i szerokości.
+
+{\bf \medium Wykres kwantyl-kwantyl}
+
+\centerline{\includegraphics[width=14cm]{images/qq_mil.png}}
+Ten wykres porównuje kwantyle (wartości, które dzielą rozkład na równe części) dla każdego z trzech rozkładów. Pomaga on zobaczyć, czy istnieją istotne różnice między kwantylami rozkładu teoretycznego (log-normalny, gamma, normalny), a rzeczywistymi danymi.
+
+\vspace{0,5 cm}
+
+{\bf \medium Wykres dystrybuanty}
+
+\centerline{\includegraphics[width=14cm]{images/cdf_mil.png}}
+Ten wykres porównuje funkcje dystrybuanty kumulacyjnej dla trzech rozkładów. Pokazuje, jak szybko rośnie prawdopodobieństwo osiągnięcia danej wartości dla każdego z rozkładów.
+
+
+{\bf \large Statystyki dopasowania rozkładu}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+ & \textbf{norm} & \textbf{lnorm} & \textbf{gamma} \\
+\hline
+KS & 0.08280634 & 0.06706802 & 0.07243193 \\
+CM & 0.40417807 & 0.26525777 & 0.30814087 \\
+AD & 2.84176797 & 1.92126642 & 2.20444827 \\
+\hline
+AIC & 521.1608 & 510.1292 & 513.4298 \\
+BIC & 528.1957 & 517.1641 & 520.4647 \\
+\hline
+\end{tabular}
+\end{table}
+
+{\bf \large Najlepszy rozkład}
+
+Analizując wykresy, wartości statystyk KS, CM i AD oraz kryteria AIC i BIC, zauważam, że najmniejsze wartości, jak i najmniejsze odstępy na wykresie, występują dla rozkładu logarytmiczno-normalnego.
+Zakładam więc, że dla danych cen zamknięcia spółki Bank Millennium, rozkładem najlepiej opisującym dane jest właśnie rozkład logarytmiczno-normalny.
+
+\clearpage
+{\bf \large Hipoteza o równości rozkładów - Bank Millennium}
+
+\includegraphics[width=14cm]{images/hist_dn_mill.png}
+
+Histogram wizualizuje, gdzie w rozkładzie statystyk testu Kolmogorova-Smirnova znajduje się statystyka dla danych obserwowanych. Jeśli punkt ten znajduje się na skraju lub daleko od głównej masy rozkładu, może to sugerować, że dane obserwowane różnią się od założonego rozkładu log-normalnego.
+\vspace{12pt}
+\par
+Wartość D wynosi 0.067. Reprezentuje maksymalną różnicę między empiryczną dystrybuantą danych a dystrybuantą teoretyczną.
+\vspace{12pt}
+
+Natomiast wartość p (p-value) oznacza prawdopodobieństwo uzyskania statystyki testowej co najmniej tak ekstremalnej jak obserwowana, przy założeniu prawdziwości hipotezy zerowej, że rozkłady są takie same.
+\vspace{12pt}
+
+Wykorzystując metodę Monte Carlo, otrzymuję wartość p równą 0.2037. Jest ona większa od przyjętego poziomu istotności 5\%, więc nie ma podstaw do odrzucenia hipotezy zerowej, dla rozkładu X $\sim$ \text{LN}(2.185, 0.075).
+
+\clearpage
+
+\subsection{mBank SA}
+
+\vspace{0.5 cm}
+
+\begin{center}
+\includegraphics[width=14cm]{images/wykr_zamk_mbk.png}
+\end{center}
+  \vspace{1 cm}
+
+\begin{center}
+\includegraphics[width=14cm]{images/hist_zamk_mbk.png}
+\end{center}
+
+\clearpage
+
+{\bf \large Statystyki opisowe mBank}
+
+\vspace{0.5 cm}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+ & \(\bar{x}\) & odch. st. & skośność & kurtoza \\
+\hline
+Akcja & 613.894 & 59.95286 & 0.1337955 & 2.424685\\
+\hline
+\end{tabular}
+\end{table}
+\vspace{0.7 cm}
+
+{\bf Kurtoza}
+
+Kurtoza dla kursu zamkniecia spółki mBank wynosi około 2.42 i ma ona rozkład platykurtyczny, co oznacza, że intensywność wartości ekstremalnych jest mniejsza niż w przypadku rozkładu normalnego, i że dane są skoncentrowane wokół średniej. Kurtoza ta sugeruje również mniejsze ryzyko ekstremalnych wahań cen akcji niż w rozkładzie normalnym oraz rzadsze występowanie bardzo dużych wzrostów lub spadków.
+
+{\bf Skośność}
+
+Skośność dla kursu zamknięcia spółki mBank wynosi około 0.13 i sugeruje, że rozkład jest niemal symetryczny z bardzo niewielką prawostronną asymetrią. Średnia jest niewiele mniejsza od mediany (Me = 617).
+
+\clearpage
+
+{\large\bf{Parametry wybranych rozkładów wyestymowane za pomocą estymatora największej wiarygodności dla spółki mBank}}
+
+\vspace{0.5 cm}
+{\bf Rozkład normalny}
+\vspace{0.5 cm}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ & estimate & Std. Error \\
+\hline
+mean & 613.89398 & 3.791722 \\
+\hline
+sd & 59.83235 & 2.681151 \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.5 cm}
+{\bf Rozkład log-normalny}
+\vspace{0.5 cm}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ & estimate & Std. Error \\
+\hline
+meanlog & 6.41505973 & 0.006193528 \\
+\hline
+sdlog & 0.09773223 & 0.004377423 \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.5 cm}
+{\bf Rozkład gamma}
+\vspace{0.5 cm}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ & estimate & Std. Error \\
+\hline
+shape & 105.1513377 & 9.36446 \\
+\hline
+rate & 0.1712856 & 0.01529 \\
+\hline
+\end{tabular}
+\end{table}
+
+\clearpage
+
+{\bf \large Wykresy diagnostyczne dla mBank}
+
+{\bf \medium Wykres gęstości}
+
+\centerline{\includegraphics[width=14cm]{images/dens_mbank.png}}
+Ten wykres porównuje funkcje gęstości prawdopodobieństwa dla trzech rozkładów: log-normalnego, gamma i normalnego. Pozwala zobaczyć, jak te rozkłady różnią się pod względem kształtu i szerokości.
+
+
+{\bf \medium Wykres kwantyl-kwantyl}
+
+\centerline{\includegraphics[width=14cm]{images/qq_mbank.png}}
+Ten wykres porównuje kwantyle (wartości, które dzielą rozkład na równe części) dla każdego z trzech rozkładów. Pomaga on zobaczyć, czy istnieją istotne różnice między kwantylami rozkładu teoretycznego (log-normalny, gamma, normalny), a rzeczywistymi danymi.
+
+\vspace{1 cm}
+
+{\bf \medium Wykres dystrybuanty}
+
+\centerline{\includegraphics[width=14cm]{images/cdf_mbank.png}}
+Ten wykres porównuje funkcje dystrybuanty kumulacyjnej dla trzech rozkładów. Pokazuje, jak szybko rośnie prawdopodobieństwo osiągnięcia danej wartości dla każdego z rozkładów.
+
+{\bf \large Statystyki dopasowania rozkładu}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+ & \textbf{norm} & \textbf{lnorm} & \textbf{gamma} \\
+\hline
+KS & 0.05419402 & 0.05972085 & 0.05322526 \\
+CM & 0.13111529 & 0.15131857 & 0.13677518 \\
+AD & 0.86581508 & 0.86625996 & 0.81774844 \\
+\hline
+AIC & 2748.222 & 2747.220 & 2746.921 \\
+BIC & 2755.256 & 2754.255 & 2753.956 \\
+\hline
+\end{tabular}
+\end{table}
+
+{\bf \large Najlepszy rozkład}
+
+Analizując wykresy, wartości statystyk KS, CM i AD oraz kryteria AIC i BIC, zauważam, że najmniejsze wartości, jak i najmniejsze odstępy na wykresie, występują dla rozkładu gamma.
+Zakładam więc, że dla danych cen zamknięcia spółki mBank, rozkładem najlepiej opisującym dane jest właśnie rozkład gamma.
+
+\clearpage
+
+{\bf \large Hipoteza o równości rozkładów - mBank}
+\vspace{0.5 cm}
+
+\centerline{\includegraphics[width=14cm]{images/hist_d_mbank.png}}
+\par
+Histogram wizualizuje, gdzie w rozkładzie statystyk testu Kolmogorova-Smirnova znajduje się statystyka dla danych obserwowanych. Jeśli punkt ten znajduje się na skraju lub daleko od głównej masy rozkładu, może to sugerować, że dane obserwowane różnią się od założonego rozkładu log-normalnego. 
+\vspace{12pt}
+\par
+Wartość D wynosi 0.05323. Reprezentuje maksymalną różnicę między empiryczną dystrybuantą danych a dystrybuantą teoretyczną.
+\vspace{12pt}
+
+Natomiast wartość p (p-value) jest to prawdopodobieństwo uzyskania statystyki testowej równej lub bardziej skrajnej niż obserwowana, pod warunkiem prawdziwości hipotezy zerowej (rozkłady są takie same).
+\vspace{12pt}
+
+Wykorzystując metodę Monte Carlo, otrzymuję wartość p równą 0.4645. Jest ona większa od poziomu istotności 5\%, więc nie ma podstaw do odrzucenia hipotezy zerowej, dla rozkładu X $\sim$ $\Gamma$(105.1513, 0.1713). Oznacza to również bardzo dobre dopasowanie rozkładu do danych.
+
+\clearpage
+
+\section{Analiza łącznego rozkładu log-zwrotów}
+{\bf \large Wykresy diagnostyczne dla log-zwrotów Bank Millennium}
+\begin{figure}[ht]
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/mil_zwroty_cdf.png}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/mil_zwroty_dens.png}
+  \end{minipage}
+
+  \vspace{0.5 cm}
+  
+  \begin{minipage}[t]{\textwidth}
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/mil_zwroty_qq.png}
+  \end{minipage}
+\end{figure}
+
+Dla Banku Millennium można zaobserwować, że odległości między rzeczywistymi danymi a kwantylami rozkładu teoretycznego, na większej części wykresu są niewielkie. Praktycznie niezauważalna jest także różnica między empiryczną funkcją dystrybuanty a rzeczywistymi danymi. Rozkład normalny wydaje się być tym, który dobrze opisuje dane dla spółki, choć niekoniecznie jest on najlepszym.    
+\clearpage
+{\bf \large Hipoteza o równości rozkładów dla log-zwrotów Bank Millennium}
+
+\includegraphics[width=15cm]{images/a1_hist_mil.png}
+
+Dla rozkładu X \(\sim \) N(0.00038, 0.02106) sprawdzam metodą KS, czy hipoteza jest spełniona. 
+Wyliczone p-value wynosi 0.557 i jest znacznie większe od przyjętego poziomu istotności 5\%. Oznacza to, że nie ma podstaw do odrzucenia hipotezy.
+\clearpage
+\pagebreak
+
+{\bf \large Wykresy diagnostyczne dla log-zwrotów mBank}
+
+\begin{figure}[ht]
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/mbk_zwroty_cdf.png}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/mbk_zwroty_dens.png}
+  \end{minipage}
+
+  \vspace{0.5 cm}
+
+  \begin{minipage}[t]{\textwidth}
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/mbk_zwroty_qq.png}
+  \end{minipage}
+\end{figure}
+
+Dla spółki mBank można zaobserwować, że odległości między rzeczywistymi danymi, a kwantylami rozkładu teoretycznego są niewielkie. Zauważalna również jest niewielka różnica między empiryczną funkcją dystrybuanty a rzeczywistymi danymi. Pozwala to stwierdzić, że rozkład normalny dobrze opisuje dane dla tej spółki.
+\clearpage
+
+{\bf \large Hipoteza o równości rozkładów dla log-zwrotów mBank}
+
+\includegraphics[width=15cm]{images/a1_hist_mbk.png}
+
+Dla rozkładu X \(\sim \) N(0.00017, 0.02006) sprawdzam metodą KS, czy hipoteza jest spełniona. 
+Wyliczone p-value wynosi 0.515 i jest większe od przyjętego poziomu istotności 5\%, co oznacza, że nie ma powodu do odrzucenia hipotezy.
+\clearpage
+
+{\bf \large Wykres rozrzutu z histogramami rozkładów brzegowych}
+    \vspace{0.5 cm}
+     \begin{center}
+     \includegraphics[width=13cm]{images/b1.png}
+\end{center}
+Wykres rozrzutu wskazuje na \textbf{silną dodatnią korelację} między log-zwrotami obu banków. Punkty układają się wzdłuż rosnącej linii prostej, co sugeruje, że akcje mBanku i Banku Millennium reagują podobnie na te same czynniki rynkowe.
+\vspace{1.5 cm}
+
+{\bf \large Wektor średnich $\mu$} 
+    \vspace{0.5 cm}
+\begin{center}
+\begin{tabular}{||c c||} 
+ \hline
+Bank Millennium & mBank  \\  
+ \hline\hline
+0.0003797872 & 0.0001670004 \\
+ \hline
+ \end{tabular}
+\end{center}
+{\bf \large Kowariancja} 
+    
+    cov = 0.0002854486
+    
+\[ \sum_{}^{\wedge} = \left[\begin{array}{c c }
+    0.0004455209 \ 0.0002854486\\
+    0.0002854486 \ 0.0004038974\\
+     \end{array}\right]\]
+
+\clearpage
+{\bf \large Korelacja}
+
+p = 0.672912
+
+\[
+P = \left[\begin{array}{cc}
+    1.000000 & 0.672912\\
+    0.672912 & 1.000000\\
+\end{array}\right]
+\]
+
+\vspace{1 cm}
+{\bf \large Wzór gęstości rozkładu normalnego}
+\vspace{0.5 cm}
+
+$\ f(x,y)= \frac{1}{2 \cdot \pi \cdot 0.021 \cdot 0.02 \cdot \sqrt{1-0.673^{2}}}
+exp ( - \frac{1}{2\cdot(1-0.673^2)}\cdot [\frac{(x-0.00038)^{2}}{0.021^2}-2 \cdot 0.673 \cdot \frac{(x-0.00038) \cdot (y-0.00017)}{0.021 \cdot 0.02} + \frac{(y-0.00017)^{2}}{0.02^{2}}]) $
+
+\vspace{1 cm}
+{\bf \large Wzory gęstości rozkładów brzegowych}
+\vspace{0.5 cm}
+
+$\ f_{1}(x) = \int_{-\infty}^\infty f(x,y)dy = \frac{1}{\sqrt{2 \cdot \pi} 0.021} \cdot e ^{\frac{(x-0.00038)^{2}}{2}} $
+
+
+$\ f_{2}(y) = \int_{-\infty}^\infty f(x,y)dy = \frac{1}{\sqrt{2 \cdot \pi} \cdot 0.02} \cdot e ^{\frac{(x-0.00017)^{2}}{2}} $
+
+\clearpage
+{\bf \large Wykres gęstości}
+
+\begin{figure}[ht]
+  \begin{minipage}[t]{\textwidth}
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/b3_gest.png}
+    \caption{Wykres gęstości rozkładu łącznego}
+  \end{minipage}
+
+  \vspace{0.3 cm}  % Adjust the vertical space between the rows
+
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/b3_jedno1.png}
+    \caption{Gęstość rozkładu normalnego - Bank Millennium}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/b3_jedno2.png}
+    \caption{Gęstość rozkładu normalnego - mBank}
+  \end{minipage}
+\end{figure}
+\vspace{0.4 cm}
+
+Wykresy rozkładów brzegowych oraz trójwymiarowy wykres gęstości dwuwymiarowego rozkładu normalnego pokazują, że dane mają cechy typowe dla rozkładu normalnego. Widoczny jest eliptyczny kształt podstawy, wskazujący na dodatnią korelację między zmiennymi ($r = 0.67$), oraz jeden wyraźny szczyt w pobliżu punktu (0, 0), co oznacza, że najczęściej występują dni z niewielkimi zmianami cen obu akcji. Rozkład jest symetryczny i unimodalny, a gęstość szybko maleje wraz z oddalaniem się od centrum, co potwierdza, że ekstremalne zwroty są rzadkie.
+
+\clearpage
+{\bf \large Porównanie wykresów rozrzutu}
+
+\begin{figure}[h!]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{images/c1_rzeczywisty.png}
+  \captionof{figure}{Wykres rozrzutu z danych}
+  \label{fig:test1}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{images/c1_proba.png}
+  \captionof{figure}{Wykres rozrzutu z próby}
+  \label{fig:test2}
+\end{minipage}
+\end{figure}
+
+Na wykresach widać, że większość punktów skupia się blisko zera, co oznacza, że dzienne log-zwroty obu spółek są zazwyczaj niewielkie. Punkty układają się wzdłuż linii o dodatnim nachyleniu, co wskazuje na dodatnią korelację między mBankiem a bankiem Millennium - gdy jedna spółka zyskuje, druga zwykle też. Nie widać dużych odchyleń, więc ekstremalne zmiany są rzadkie. Oba wykresy wyglądają podobnie, co pokazuje, że próbka dobrze odzwierciedla dane rzeczywiste.
+
+\vspace{0.3 cm}
+{\bf \large Kwadraty odległości Mahalanobisa}
+
+\includegraphics[width=16cm]{images/hist_mahalanobis.png}
+\vspace{0 cm}
+
+Analizując kształt histogramu dla log-zwrotów, stwierdzam, że jest on podobny do histogramu kwadratów odległości Mahalanobisa dla rozkładu normalnego.
+
+\includegraphics[width=16cm]{images/c2_plot.png}
+\vspace{1 cm}
+\\
+Punkty na wykresie leżą stosunkowo blisko linii prostej, więc można założyć, że rozkład empiryczny kwadratów odległości Mahalanobisa dobrze odpowiada rozkładowi teoretycznemu chi-kwadrat. 
+\par
+Przeprowadzam więc test zgodności oparty na statystyce Kolmogorova-Smirnova, z którego dowiaduję się, że p-value ma wartość 0.04978. Jako że p-value jest minimalnie mniejsze niż 5\%, muszę odrzucić hipotezę, że kwadrat odległości Mahalanobisa ma rozkład chi(2). W konsekwencji można stwierdzić, że rozkład log-zwrotów nie jest idealnie normalny. Jednak warto zauważyć, że p-value jest bardzo bliskie granicy istotności, co sugeruje, że dane tylko nieznacznie odbiegają od normalności.
+
+\clearpage
+
+\section{Regresja liniowa dla log-zwrotów}
+
+{\bf \large Analiza regresji}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{images/regresja_liniowa.png}
+    \caption{Prosta regresji na wykresie}
+\end{figure}
+$\beta_1 = 0.7067$ \\
+$\beta_0 = 0.00026$
+\\
+Wynika z tego, że linia regresji to: $ y = 0.7067x + 0.00026$ 
+\vspace{0.5 cm}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=13cm]{images/wyniki_regresja.png}
+\end{figure}
+
+\clearpage
+
+Powyższy wynik pochodzi z analizy regresji liniowej, gdzie zmienna zależna \texttt{diff\_mil} (log-zwroty spółki Bank Millennium) jest przewidywana przez zmienną niezależną \texttt{diff\_mbk} (log-zwroty spółki mBank).
+
+Można z niego wyczytać między innymi informację o resztach modelu (\textit{Residuals}), takie że reszty są to różnice między rzeczywistymi wartościami a wartościami przewidywanymi przez model. W tym przypadku mają one wartości: minimalne: $-0.036469$, kwartyl 1Q: $-0.010158$, mediana: $-0.000886$, kwartyl 3Q: $0.008521$ oraz maksymalne: $0.056764$.
+
+W przypadku modelu regresji dla log-zwrotów spółek mBank S.A. i Bank Millennium:
+\begin{equation}
+y = 0.00026 + 0.7067x + \epsilon, \quad \epsilon \sim N(0, 0.0.01565^2)
+\end{equation}
+
+Współczynnik determinacji ($R^2$) wynosi $0.4528$. Oznacza to, że około $45.28\%$ zmienności log-zwrotów spółki Bank Millennium jest wyjaśnione przez log-zwroty spółki mBank. Zatem około $54.72\%$ zmienności nie jest wyjaśnione przez log-zwroty spółki mBank.
+
+Istotność statystyczna współczynnika $\beta_1$ jest bardzo wysoka ($p$-value $< 2.2 \times 10^{-16}$), co wskazuje na silną i statystycznie istotną zależność między log-zwrotami obu banków. Dodatnia wartość współczynnika $\beta_1 = 0.7067$ sugeruje, że wzrost log-zwrotów mBanku o 1 jednostkę wiąże się ze wzrostem log-zwrotów Banku Millennium o około $0.71$ jednostki.
+
+\vspace{0.5  cm}
+{\bf \large Analiza reszt}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=13cm]{images/hist_reszty.png}
+\end{figure}
+Z histogramu można wyczytać, że większość reszt ma wartości zbliżone do zera. Można zauważyć, że przypomina on rozkład normalny. 
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{images/qqplot_reszty.png} 
+\end{figure}
+
+Na wykresie kwantyl-kwantyl można zauważyć, że duża część danych empirycznych pokrywa się z linią,  która reprezentuje dane teoretyczne, co może sugerować, że reszta może być opisywana za pomocą rozkładu normalnego.
+
+{\bf \medium Testy normalności rozkładu}
+
+W tym podpunkcie sprawdzam hipotezę zerową, że rozkład reszt jest rozkładem normalnym. 
+
+{\bf \small Test Kolmogorova-Smirnova}
+    \[D = 0.06209, p-value = 0.2946\]
+{\bf \small Test Andrsona-Darlinga}
+    \[A = 0.90617, p-value = 0.02065\]
+{\bf \small Test Shapiro-Wilka}
+    \[W = 0.98549, p-value = 0.01272\]
+
+Analizując wyniki powyższych testów, test Kolmogorova-Smirnova ($p = 0.2946 > 0.05$) nie daje podstaw do odrzucenia hipotezy o normalności reszt. jednak bardziej czułe testy Andersona-Darlinga ($p = 0.02065$) i Shapiro-Wilka ($p = 0.01272$) wykrywają istotne statystycznie odchylenia od rozkładu normalnego. Wyniki testów są niejednoznaczne, jednak biorąc pod uwagę większą moc testów AD i SW, należy uznać, że reszty wykazują niewielkie, ale statystycznie istotne odchylenia od rozkładu normalnego, co skutkuje odrzuceniem hipotezy zerowej, że rozkład reszt jest rozkładem normalnym. 
+
+
+{\bf \large Test istotności współczynników $b_0$ i $b_1$}
+
+{\bf \small Sprawdzamy hipotezę zerową $b_0=0$ przeciwko hipotezie alternatywnej $b_0\neq0$.}
+
+Wartość statystyki testowej $t_0$ wynosi około $0.263$. Stąd wynika, że $P(|T| > t_0) = 0.792$ ($p$-value) jest większe od poziomu istotności $\alpha = 5\%$, nie ma więc podstaw do odrzucenia hipotezy zerowej, że współczynnik $b_0$ jest równy zero.
+
+{\bf \small Sprawdzamy hipotezę zerową $b_1=0$ przeciwko hipotezie alternatywnej $b_1\neq0$.}
+
+W tym przypadku wartość statystyki testowej $t_1$ wynosi około $14.268$. Stąd też mamy wartość $P(|T| > t_1) < 2.2 \times 10^{-16}$ ($p$-value). Możemy więc odrzucić hipotezę zerową, że współczynnik $b_1 = 0$, na dowolnym poziomie istotności.
+\par
+Wyniki testu istotności współczynników wskazują, że być może powinno się rozważyć prostszy model, w którym współczynnik $b_0$ miałby wartość zero.
+
+{\bf \medium Wynik regresji liniowej dla modelu: $y = b_1x$}
+
+\vspace{0.5 cm}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{images/wynik_b0.png}
+\end{figure}
+
+Można zauważyć, że oba modele są dość podobne, jednakże wydaje się, że model ze współczynnikiem $b_0$ może delikatnie lepiej przedstawiać dane, lecz niewiele to zmienia w kontekście analizy regresji liniowej.
+
+\clearpage
+
+{\bf \large Predykcja wielkości log-zwrotów spółki Bank Millennium, gdy log-zwroty spółki mBank będą na poziomie średniej z posiadanej próby}
+
+Wartość średniej log-zwrotów dla spółki mBank wynosi: m = 0.000167.
+
+{\bf \medium Predykcja dla modelu 1}
+\[\beta_0+\beta_1*m = 0.0003797872  \]
+
+{\bf \medium Predykcja dla modelu 2}
+\[\beta_{1 model2}*m = 0.0001180432 \]
+
+
+Na podstawie otrzymanych predykcji log-zwrotów, można stwierdzić, że oba modele przewidują bardzo zbliżone wartości, bliskie zeru. Model 1 (z wyrazem wolnym) przewiduje log-zwroty Banku Millennium na poziomie $0.0003797872$, podczas gdy Model 2 (bez wyrazu wolnego) przewiduje wartość $0.0001180432$.
+\par
+Różnica między modelami jest bardzo mała, co potwierdza, że wyraz wolny w modelu 1 nie ma znaczącego wpływu na predykcję. Oznacza to, że gdy log-zwroty mBanku znajdują się na średniej wartości z próby, oczekiwane log-zwroty Banku Millennium będą również bliskie zeru, czyli bank nie powinien przynosić ani zysków, ani strat.
+
+\clearpage
+
+\section {Podsumowanie}
+
+Celem projektu była analiza spółek Bank Millennium oraz mBank. Podzielono go na trzy etapy.
+\par
+Pierwszy etap skupiał się na cenach zamknięcia akcji spółek za rok 2024. Przedstawiono w nim wykresy kursów zamknięcia, histogramy oraz szukano rozkładu, który najlepiej opisywałby te dane za pomocą wartości statystyk (KS, CM, AD), kryteriów informacyjnych (AIC, BIC) i metody Monte-Carlo.
+Doszedłem do wniosku, ze dla Banku Millennium najlepszym rozkładem jest rozkład log-normalny, natomiast dla mBanku, rozkład gamma.
+\par
+Drugi etap skupiał się na anlizie dziennych log-zwrotów spółek za rok 2024. Analizowano tutaj rozkłady brzegowe, dobroć dopasowania danych do rozkładu normalnego oraz kwadraty odległości Mahalanobisa. Ostatecznie odrzucono hipotezę o normalności rozkładu log-zwrotów.
+\par
+W trzecim etapie podjęto się analizy regresji liniowej dla log-zwrotów. Wykonano model regresji liniowej, który udało się uprościć, oraz zrobiono predykcję dla log-zwrotów Banku Millennium, gdy log-zwroty mBanku będą na poziomie średniej z posiadanej próby.
+
+\end{document}
+
