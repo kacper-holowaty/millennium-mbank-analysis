@@ -7,8 +7,8 @@ library(MVN)
 library(mnormt)
 library(nortest)
 
-mil <- read.csv("C:/Users/kacpe/Downloads/mil_d.csv")
-mbk <- read.csv("C:/Users/kacpe/Downloads/mbk_d.csv")
+mil <- read.csv("mil_d.csv")
+mbk <- read.csv("mbk_d.csv")
 mil_zamk <- mil$Zamkniecie
 mbk_zamk <- mbk$Zamkniecie
 
@@ -397,7 +397,7 @@ beta1 <- coef(model.lm)[2]; beta1
 pred1 <- beta0 + beta1 * m
 pred1
 
-beta1_model2 <- model.lm2$coefficients
+beta1_model2 <- model.lm.no.intercept$coefficients
 beta1_model2
 
 
@@ -405,12 +405,12 @@ beta1_model2
 pred2 <- beta1_model2*m
 pred2
 
-nowa.model <- data.frame(mBank=m)
+nowy.model <- data.frame(mBank=m)
 
-nowa.model;
+nowy.model;
 model.lm;
 
-predict(model.lm2, nowa.model, interval="confidence")
+predict(model.lm.no.intercept, nowy.model, interval="confidence")
 
 
 
